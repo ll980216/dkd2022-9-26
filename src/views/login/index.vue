@@ -15,7 +15,7 @@
         <div class="title-container">
           <el-form-item prop="mobile">
             <span class="svg-container el-icon-mobile-phone" />
-            <el-input v-model="loginForm.mobile" placeholder="请输入手机号码" />
+            <el-input v-model="loginForm.loginName" placeholder="请输入手机号码" />
           </el-form-item>
           <el-form-item prop="password">
             <span class="svg-container el-icon-lock"> </span>
@@ -30,7 +30,7 @@
             <span class="svg-container">
               <svg-icon icon-class="password" />
             </span>
-            <el-input v-model="loginForm.verify" placeholder="请输入验证码" class="form-verify" />
+            <el-input v-model="loginForm.code" placeholder="请输入验证码" class="form-verify" />
             <img :src="imgData" alt="" @click="getIMG" class="r-ver" />
           </el-form-item>
         </div>
@@ -47,6 +47,7 @@
    -->
 </template>
 <script>
+import { Message } from 'element-ui'
 import { validphone } from '@/utils/validate'
 import { getImgAPI } from '@/api/login'
 export default {
@@ -60,23 +61,27 @@ export default {
         callback()
       }
     }
+    const num = Math.random()
     return {
       imgData: [],
       passwordType: 'password',
       loginForm: {
-        mobile: '13800000002',
-        password: '123456',
-        verify: null
+        loginName: 'admin',
+        password: 'admin',
+        code: '',
+        clientToken: num,
+        loginType: 0
+
       },
       rules: {
-        mobile: [
+        loginName: [
           {
             required: true,
             message: '请输入用户名',
             trigger: 'blur'
           },
           {
-            validator: phonevalid,
+            message: '请输入用户名',
             trigger: 'blur'
           }
         ],
@@ -87,9 +92,19 @@ export default {
             trigger: 'blur'
           },
           {
-            min: 6,
-            max: 16,
             message: '请输入正确的格式',
+            trigger: 'blur'
+          }
+        ],
+        code: [
+          {
+            required: true,
+            message: '请输入验证码',
+            trigger: 'blur'
+          },
+          {
+            min: 4,
+            max: 4,
             trigger: 'blur'
           }
         ]
@@ -97,13 +112,18 @@ export default {
     }
   },
   methods: {
+    // 验证码信息
     async getIMG() {
-      const { data } = await getImgAPI()
+      // const math = Math.random()
+      const { data } = await getImgAPI(this.loginForm.clientToken)
+      // this.clientToken = math
+      // console.log(math)
       const blob = new Blob([data], { type: 'image/png' })
       const url = window.URL.createObjectURL(blob)
       // console.log(blob)
       this.imgData = url
     },
+    // 
     showPWD() {
       this.passwordType === 'password' ? this.passwordType = '' : this.passwordType = 'password'
       this.$nextTick(() => {
@@ -117,6 +137,8 @@ export default {
         // 规则验证成功转圈
         this.loading = true
         await this.$store.dispatch('user/loginActions', this.loginForm)
+        this.$router.push({ path: '/' })
+        // console.log(token)
       } finally {
         this.loading = false
       }
@@ -124,6 +146,7 @@ export default {
   },
   created() {
     this.getIMG()
+    // this.login()
   }
 }
 </script>

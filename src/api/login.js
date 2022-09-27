@@ -2,15 +2,15 @@
 import request from '@/utils/request'
 export function loginAPI(data) {
   return request({
-    url: '/sys/login',
+    url: '/user-service/user/login',
     method: 'POST',
     data
   })
 }
 
-export const getImgAPI = () => {
+export const getImgAPI = (math) => {
   return request({
-    url: `/user-service/user/imageCode/${Math.random()}`,
+    url: `/user-service/user/imageCode/${math}`,
     responseType: 'blob'
   })
 }
