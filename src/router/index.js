@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import gdglRouter from '@/router/modules/gdgl.js'
 
 Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
 
+const asyncRouter = [gdglRouter]
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -62,7 +64,7 @@ export const constantRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  routes: [...constantRoutes,...asyncRouter]
 })
 
 const router = createRouter()

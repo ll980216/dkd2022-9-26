@@ -1,14 +1,16 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <!-- <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" /> -->
 
-    <breadcrumb class="breadcrumb-container" />
+    <!-- <breadcrumb class="breadcrumb-container" /> -->
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <!-- <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar"> -->
+            <div class="pic"><img src="~@/assets/common/user.png" class="user-avatar" /></div>
+            <span class="user-name">欢迎您, <i>admin</i></span>
+            <div class="logouticon">退出<i class="el-icon-caret-bottom" @click="logout" /></div>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -16,15 +18,9 @@
               Home
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
+          <!-- <el-dropdown-item divided>
             <span style="display:block;">Log Out</span>
-          </el-dropdown-item>
+          </el-dropdown-item> -->
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -61,10 +57,13 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 50px;
+  width: 100%;
+  height: 60px;
   overflow: hidden;
-  position: relative;
-  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: url('~@/assets/common/backgroundone.png');
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
@@ -87,7 +86,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
+    line-height: 60px;
 
     &:focus {
       outline: none;
@@ -112,25 +111,57 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 30px;
+      margin-right: 24px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        // margin-top: 5px;
         position: relative;
+        width: 240px;
+        height: 60px;
+        // background-color: blueviolet;
+        line-height: 60px;
 
+        .pic {
+          display: inline-block;
+          width: 48px;
+          height: 60px;
+          line-height: 60px;
+        }
         .user-avatar {
           cursor: pointer;
-          width: 40px;
-          height: 40px;
+          width: 35px;
+          height: 35px;
           border-radius: 10px;
-        }
+          vertical-align:middle
 
+        }
+        .user-name {
+          display:inline-block;
+          width: 140px;
+          line-height: 60px;
+          height: 60px;
+          // background-color: aqua;
+          font-size: 16px;
+          color: #fff;
+          font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif;
+          font-weight: 300px;
+        }
+        .logouticon {
+          display: inline-block;
+          width: 48px;
+          height: 60px;
+          // background-color: blue;
+          font-size: 16px;
+          color: #fff;
+        }
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
+          // right: -20px;
+          // top: 25px;
+          line-height: 60px;
+          font-size: 16px;
+          color: #fff;
         }
       }
     }

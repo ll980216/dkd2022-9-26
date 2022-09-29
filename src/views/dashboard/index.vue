@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <h1>我是主页</h1>
     <div class="dashboard-text">name: {{ name }}</div>
     <svg-icon  iconClass="form"></svg-icon>
   </div>

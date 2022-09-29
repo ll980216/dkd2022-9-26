@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   state: {
     token: null,
-    loginForm:{}
+    loginForm: {}
   },
   mutations: {
     setToken(state, token) {
